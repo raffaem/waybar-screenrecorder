@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Copyright 2024 Raffaele Mancuso
 # SPDX-License-Identifier: MIT
 
@@ -6,11 +7,16 @@
 
 SIGNAL=1
 pidf="/tmp/waybar-screenrecorder"
-# Insert `-a` if you want to record audio
-WF_RECORDER_OPTS="--audio"
-# WF_RECORDER_OPTS="$WF_RECORDER_OPTS -c h264_nvenc -d /dev/dri/renderD128"
+WF_RECORDER_OPTS=""
+# Insert `--audio` if you want to record audio
+# Specify video codec
+# find available video codecs with `ffmpeg -encoders`
+WF_RECORDER_OPTS="$WF_RECORDER_OPTS --codec libvpx"
+# Specify audio codec
+# find available audio codecs with `ffmpeg -codecs`
+# WF_RECORDER_OPTS="$WF_RECORDER_OPTS --audio --codec opus"
 # printf "WF_RECORDER_OPTS=%s\n" "$WF_RECORDER_OPTS"
-VIDEOEXT="mp4"
+VIDEOEXT="webm"
 
 if [ "$1" == "status" ]; then
 	if [ -s "$pidf" ]; then
